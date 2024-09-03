@@ -72,7 +72,7 @@ begin
 			PlutoUI.ExperimentalLayout.hbox([
 			md"""
 			**Bela edit here text**
-			
+
 			Running experiments in the ocean is very expensive and labour intensive. To try and understand more about the physical processes in the ocean, simulations are often used.
 			These range from simple simulations, such as the first the animations below, all the way to simulating the global circulation of the ocean as realistically as possible.
 
@@ -104,8 +104,8 @@ begin
 	PlutoUI.ExperimentalLayout.vbox(
 		[
 			PlutoUI.ExperimentalLayout.hbox([
-				md""" 
-				## Vertical transport of salinity and temperature 
+				md"""
+				## Vertical transport of salinity and temperature
 				## Convection
 				Convection occurs when dense water forms atop lighter water.
 				This creates a gravitational instability leading to the dense water sinking very rapidly through lighter waters.
@@ -117,7 +117,7 @@ begin
 				### Salt fingering
 				When salinity is acting to destratify the water column we see an instability known as *salt fingers* form.
 				As the animation below shows this leads to fingers of warm salty water intruding into the denser water below.
-				
+
 				### Diffusive convection
 				When temperature is acting to destratify the water column *diffusive convection occurs*.
 				In this situation we often see *thermohaline staircases* form where well mixed layers are seperated by very sharp changes in density.
