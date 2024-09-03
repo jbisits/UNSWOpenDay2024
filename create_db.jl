@@ -34,6 +34,39 @@ To get the writing to go underneath the plots you have to move this cell to belo
 It may be that the description of the animations needs to go under the animations but for now can leave this as is.
 """
 
+# ╔═╡ 6e661452-36f7-4261-9e1e-3e562fdbed0d
+begin
+	expl_cell_1 = PlutoRunner.currently_running_cell_id[] |> string
+	#$(LocalResource(unsw_logo, :width => 60, :height => 60)) Simulating the ocean
+	PlutoUI.ExperimentalLayout.vbox(
+		[
+			html"""
+			<h1 align="center"> Bela edit here - title</h1>
+			"""
+			PlutoUI.ExperimentalLayout.hbox([
+			md"""
+			**Bela edit here text**
+			
+			Running experiments in the ocean is very expensive and labour intensive. To try and understand more about the physical processes in the ocean, simulations are often used.
+			These range from simple simulations, such as the first the animations below, all the way to simulating the global circulation of the ocean as realistically as possible.
+
+			The rotating tank showed how a dye spreads out in various flows.
+			We can use the advection-diffusion (or move around-spread out) equation to simulate what happens to a concentration field (like a dye) in different flow fields.
+
+			For more information about our group visit the [Climate data and dynamics lab website](https://climate-data-dynamics.github.io/climate-data-dynamics-lab-website/).
+			""",
+			#Need the newline for the zoomed in version of the presentation
+			md"""\
+			
+			This dashboard and the simulations that produced the animations can be found at `https://github.com/jbisits/UNSWOpenDay2024`.
+			"""
+			#Add this when you want to add the animation $(local_sst)
+			],
+			style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "5em"))
+		],
+		style=Dict("background" => "border-radius" => "50px", "padding" => "20px", "margin" => "20px"))
+end
+
 # ╔═╡ 3a22c38a-f530-487a-ba6f-1e9faeca6f36
 md"""
 # Images as `LocalResource`
@@ -47,7 +80,7 @@ path_to_anims = joinpath(pwd(), "animations")
 
 # ╔═╡ f37333ef-5b7d-4e4a-922d-32298fd05c35
 begin
-	sst = joinpath(path_to_anims, "filename.mp4")
+	# sst = joinpath(path_to_anims, "filename.mp4")
 	dc = joinpath(path_to_anims, "diffusive_convection.mp4")
 	cats_eye = joinpath(path_to_anims, "avd-diff_catseye_tracer.mp4")
 	turb_ad = joinpath(path_to_anims, "turb_avd-diff_tracer.mp4")
@@ -58,38 +91,6 @@ end
 begin
 	sst_cell = PlutoRunner.currently_running_cell_id[] |> string
 	local_sst = LocalResource(sst, :autoplay => "", :loop => "", :width => 800, :height => 600)
-end
-
-# ╔═╡ 6e661452-36f7-4261-9e1e-3e562fdbed0d
-begin
-	expl_cell_1 = PlutoRunner.currently_running_cell_id[] |> string
-	#$(LocalResource(unsw_logo, :width => 60, :height => 60)) Simulating the ocean
-	PlutoUI.ExperimentalLayout.vbox(
-		[
-			html"""
-			<h1 align="center"> Bela edit here - title</h1>
-			"""
-			PlutoUI.ExperimentalLayout.hbox([
-			md"""
-			**Bela edit here text**
-
-			Running experiments in the ocean is very expensive and labour intensive. To try and understand more about the physical processes in the ocean, simulations are often used.
-			These range from simple simulations, such as the first the animations below, all the way to simulating the global circulation of the ocean as realistically as possible.
-
-			The rotating tank showed how a dye spreads out in various flows.
-			We can use the advection-diffusion (or move around-spread out) equation to simulate what happens to a concentration field (like a dye) in different flow fields.
-
-			For more information about our group visit the [Climate data and dynamics lab website](https://climate-data-dynamics.github.io/climate-data-dynamics-lab-website/).
-			""",
-			#Need the newline for the zoomed in version of the presentation
-			md"""\
-			$(local_sst)
-			This dashboard and the simulations that produced the animations can be found at `https://github.com/jbisits/UNSWOpenDay2024`.
-			"""
-			],
-			style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "5em"))
-		],
-		style=Dict("background" => "border-radius" => "50px", "padding" => "20px", "margin" => "20px"))
 end
 
 # ╔═╡ 61b91bdf-ead5-4aa1-a4d5-1e1cda8c50cd
@@ -104,8 +105,8 @@ begin
 	PlutoUI.ExperimentalLayout.vbox(
 		[
 			PlutoUI.ExperimentalLayout.hbox([
-				md"""
-				## Vertical transport of salinity and temperature
+				md""" 
+				## Vertical transport of salinity and temperature 
 				## Convection
 				Convection occurs when dense water forms atop lighter water.
 				This creates a gravitational instability leading to the dense water sinking very rapidly through lighter waters.
@@ -117,7 +118,7 @@ begin
 				### Salt fingering
 				When salinity is acting to destratify the water column we see an instability known as *salt fingers* form.
 				As the animation below shows this leads to fingers of warm salty water intruding into the denser water below.
-
+				
 				### Diffusive convection
 				When temperature is acting to destratify the water column *diffusive convection occurs*.
 				In this situation we often see *thermohaline staircases* form where well mixed layers are seperated by very sharp changes in density.
