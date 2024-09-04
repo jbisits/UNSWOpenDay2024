@@ -82,21 +82,33 @@ path_to_anims = joinpath(pwd(), "animations")
 begin
 	# sst = joinpath(path_to_anims, "filename.mp4")
 	dc = joinpath(path_to_anims, "diffusive_convection.mp4")
-	cats_eye = joinpath(path_to_anims, "avd-diff_catseye_tracer.mp4")
-	turb_ad = joinpath(path_to_anims, "turb_avd-diff_tracer.mp4")
+	convection = joinpath(path_to_anims, "convection.mp4")
+	convection_tracers = joinpath(path_to_anims, "tracers_convection.mp4")
 	unsw_logo = joinpath(path_to_anims, "logo.png")
 end
 
 # ╔═╡ c2ea0a8a-b024-42b5-9ead-91c6b43eeb31
-begin
-	sst_cell = PlutoRunner.currently_running_cell_id[] |> string
-	local_sst = LocalResource(sst, :autoplay => "", :loop => "", :width => 800, :height => 600)
-end
+# begin
+# 	sst_cell = PlutoRunner.currently_running_cell_id[] |> string
+# 	local_sst = LocalResource(sst, :autoplay => "", :loop => "", :width => 800, :height => 600)
+# end
 
 # ╔═╡ 61b91bdf-ead5-4aa1-a4d5-1e1cda8c50cd
 begin
 	dc_cell = PlutoRunner.currently_running_cell_id[] |> string
 	local_dc = LocalResource(dc, :autoplay => "", :loop => "", :width => 800, :height => 600)
+end
+
+# ╔═╡ bdcfcd1b-6973-4c41-b1d5-08a2ec877e46
+begin
+	convection_cell = PlutoRunner.currently_running_cell_id[] |> string
+	local_convection = LocalResource(convection, :autoplay => "", :loop => "", :width => 800, :height => 600)
+end
+
+# ╔═╡ 46039523-887d-4df6-9be7-170c929fcf72
+begin
+	convection_tracers_cell = PlutoRunner.currently_running_cell_id[] |> string
+	local_convection_tracers = LocalResource(convection_tracers, :autoplay => "", :loop => "", :width => 800, :height => 600)
 end
 
 # ╔═╡ f9594b4f-37f9-4741-887c-901873c7e4be
@@ -108,8 +120,19 @@ begin
 				md""" 
 				## Vertical transport of salinity and temperature 
 				## Convection
+				The vertical transport of heat into the ocean is **relatively slow** compared to the lateral transport.
+				The exception to this is *convective mixing*.
+				
 				Convection occurs when dense water forms atop lighter water.
 				This creates a gravitational instability leading to the dense water sinking very rapidly through lighter waters.
+
+				The simulation below shows an example of convection.
+				We start with dense water over light water and see very vigorous vertical mixing until the density is approximately uniform over the domain.
+				$(local_convection)
+
+				Our model setup means that no heat or salt enter or escape our domain (for those interested this is because our boundary conditions are horizontally periodic and zero flux vertically).
+				Looking at the salinity and temperature, which determine the density, we can see that the mixing occurs until these tracers are homogeneous over the domain
+				$(local_convection_tracers)
 				""",
 				##
 				md""" ## Other convective instabilities
@@ -170,6 +193,8 @@ dash_final_url = "http://localhost:1234/edit?" * "id=$notebook&" * join(["isolat
 # ╠═f37333ef-5b7d-4e4a-922d-32298fd05c35
 # ╠═c2ea0a8a-b024-42b5-9ead-91c6b43eeb31
 # ╠═61b91bdf-ead5-4aa1-a4d5-1e1cda8c50cd
+# ╠═bdcfcd1b-6973-4c41-b1d5-08a2ec877e46
+# ╠═46039523-887d-4df6-9be7-170c929fcf72
 # ╟─3f51870b-c4b7-405a-9e1e-f35dd70aac8f
 # ╠═88abdf87-52ec-4141-8fb6-3170d46e77ee
 # ╠═fe3e08f8-3dd0-4ebe-a1e7-7ec063222aba
