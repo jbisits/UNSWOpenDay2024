@@ -64,7 +64,7 @@ begin
 			],
 			style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "5em"))
 		],
-		style=Dict("background" => "border-radius" => "50px", "padding" => "20px", "margin" => "20px"))
+		style=Dict("background" => "border-radius" => "50px", "padding" => "20px", "margin" => "20px", "font-size" => "30px"))
 end
 
 # ╔═╡ 3a22c38a-f530-487a-ba6f-1e9faeca6f36
@@ -84,7 +84,7 @@ begin
 	dc = joinpath(path_to_anims, "diffusive_convection.mp4")
 	convection = joinpath(path_to_anims, "convection.mp4")
 	convection_tracers = joinpath(path_to_anims, "tracers_convection.mp4")
-	unsw_logo = joinpath(path_to_anims, "logo.png")
+	cabbeling = joinpath(path_to_anims, "cabbeling.mp4")
 end
 
 # ╔═╡ c2ea0a8a-b024-42b5-9ead-91c6b43eeb31
@@ -96,60 +96,86 @@ end
 # ╔═╡ 61b91bdf-ead5-4aa1-a4d5-1e1cda8c50cd
 begin
 	dc_cell = PlutoRunner.currently_running_cell_id[] |> string
-	local_dc = LocalResource(dc, :autoplay => "", :loop => "", :width => 800, :height => 600)
+	local_dc = LocalResource(dc, :autoplay => "", :loop => "", :width => 900, :height => 700)
 end
 
 # ╔═╡ bdcfcd1b-6973-4c41-b1d5-08a2ec877e46
 begin
 	convection_cell = PlutoRunner.currently_running_cell_id[] |> string
-	local_convection = LocalResource(convection, :autoplay => "", :loop => "", :width => 800, :height => 600)
+	local_convection = LocalResource(convection, :autoplay => "", :loop => "", :width => 700, :height => 900)
 end
 
 # ╔═╡ 46039523-887d-4df6-9be7-170c929fcf72
 begin
 	convection_tracers_cell = PlutoRunner.currently_running_cell_id[] |> string
-	local_convection_tracers = LocalResource(convection_tracers, :autoplay => "", :loop => "", :width => 800, :height => 600)
+	local_convection_tracers = LocalResource(convection_tracers, :autoplay => "", :loop => "", :width => 700, :height => 700)
+end
+
+# ╔═╡ 981b3dc4-f4d7-4466-a0ff-18d1d4938c24
+begin
+	cabbeling_cell = PlutoRunner.currently_running_cell_id[] |> string
+	local_cabbeling = LocalResource(cabbeling, :autoplay => "", :loop => "", :width => 600, :height => 600)
 end
 
 # ╔═╡ f9594b4f-37f9-4741-887c-901873c7e4be
 begin
-	expl_cell_2 = PlutoRunner.currently_running_cell_id[] |> string
-	PlutoUI.ExperimentalLayout.vbox(
-		[
+	convection_cell_explantation = PlutoRunner.currently_running_cell_id[] |> string
+	PlutoUI.ExperimentalLayout.vbox([
+			html"""
+			<h1 align="center"> Vertical transport of salinity and temperature</h1>
+			"""
 			PlutoUI.ExperimentalLayout.hbox([
-				md""" 
-				## Vertical transport of salinity and temperature 
+					PlutoUI.ExperimentalLayout.vbox([
+							PlutoUI.ExperimentalLayout.hbox([
+					md""" 
 				## Convection
-				The vertical transport of heat into the ocean is **relatively slow** compared to the lateral transport.
+				In the ocean, the vertical transport of heat and other biogeochemical tracers is **relatively slow** compared to the lateral transport.
 				The exception to this is *convective mixing*.
 				
 				Convection occurs when dense water forms atop lighter water.
 				This creates a gravitational instability leading to the dense water sinking very rapidly through lighter waters.
+				This process is important near the surface of the ocean where temperature is taken in by the ocean, consequently modulating the local density. 
 
 				The simulation below shows an example of convection.
-				We start with dense water over light water and see very vigorous vertical mixing until the density is approximately uniform over the domain.
-				$(local_convection)
+				We start with dense water over light water and see very vigorous vertical mixing until the density is approximately uniform over the domain.""",
+						
+				local_convection], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em")),
+							PlutoUI.ExperimentalLayout.hbox([
+					local_convection_tracers,
+					md"""
+					Our model setup means that no heat or salt enter or escape our domain (for those interested this is because our boundary conditions are horizontally periodic and zero flux vertically).
+					Looking at the salinity and temperature, which determine the density, we can see that the mixing occurs until these tracers are homogeneous over the domain.
+					"""], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em"))
+					]),
+					PlutoUI.ExperimentalLayout.vbox([
+														md""" ## Other convective instabilities
+				Due to the differing rates of molecular diffusion between heat and salt (salt is around 100 times slower in the ocean), or the non-linear dependence of seawater density on salinity and temperature, convective instabilities are able to form in profiles that are overall gravitationally stable.
 
-				Our model setup means that no heat or salt enter or escape our domain (for those interested this is because our boundary conditions are horizontally periodic and zero flux vertically).
-				Looking at the salinity and temperature, which determine the density, we can see that the mixing occurs until these tracers are homogeneous over the domain
-				$(local_convection_tracers)
-				""",
-				##
-				md""" ## Other convective instabilities
-				Due to the differing rates of molecular diffusion between heat and salt (salt is around 100 times slower in the ocean), convective type instabilities are able to form in profiles that are overall gravitationally stable but *unstable* in either salinity or temperature.
-
-				### Salt fingering
-				When salinity is acting to destratify the water column we see an instability known as *salt fingers* form.
-				As the animation below shows this leads to fingers of warm salty water intruding into the denser water below.
-				
+				Below we look at two instabilities that can form when less dense relatively cold/fresh water sits atop desnser warmer/saltier water.
+				In this case the temperature is weakening the stability but salinity compensates to maintain overall gravitational stability.
+				This is very common in the polar oceans where there is intense cooling at the sea surface.""",
+						PlutoUI.ExperimentalLayout.hbox([
+				md"""
 				### Diffusive convection
-				When temperature is acting to destratify the water column *diffusive convection occurs*.
+				When temperature is acting to destratify the water column, and there are no external sources of mixing or turbulence, *diffusive convection* occurs.
 				In this situation we often see *thermohaline staircases* form where well mixed layers are seperated by very sharp changes in density.
-				$(local_dc)
-				"""],
-			style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "5em"))
+				""",
+				local_dc], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em")),
+						PlutoUI.ExperimentalLayout.hbox([
+				local_cabbeling,
+				md"""
+				### Cabbbeling induced instability
+				Non-linearities in the equation of state for seawater density lead to non-linear processes.
+				One such process is cabbeling whereby the mixture of two water parcels with equal density, but with differing salinity and temperature, is *denser* than the parent water parcels.
+				This process means that a water column can be gravitataionlly stable but if mixed an instability forms triggering convection.
+				This is what we see in the simulation below.
+				For more information on this work see the research poster ''title''.
+				"""], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em"))
+					],style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em"))
+			],
+			style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "3em"))
 		],
-		style=Dict("background" => "border-radius" => "50px", "padding" => "20px", "margin" => "20px"))
+		style=Dict("justify-content" => "center", "background" => "border-radius" => "50px", "padding" => "20px", "margin" => "20px", "font-size" => "30px"))
 end
 
 # ╔═╡ 3f51870b-c4b7-405a-9e1e-f35dd70aac8f
@@ -157,19 +183,8 @@ md"""
 # Create the dashboard from the cells
 """
 
-# ╔═╡ 88abdf87-52ec-4141-8fb6-3170d46e77ee
-begin
-	plot_cell = PlutoRunner.currently_running_cell_id[] |> string
-	PlutoUI.ExperimentalLayout.vbox(
-		[
-			PlutoUI.ExperimentalLayout.hbox([dc_cell],
-			style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "5em"))
-		],
-		style=Dict("background" => "border-radius" => "50px", "padding" => "20px", "margin" => "20px"))
-end
-
 # ╔═╡ fe3e08f8-3dd0-4ebe-a1e7-7ec063222aba
-cells = [expl_cell_1, expl_cell_2]
+cells = [expl_cell_1, convection_cell_explantation]
 
 # ╔═╡ 092a445d-7ece-4eb5-844b-c6032e6e4c09
 notebook = PlutoRunner.notebook_id[] |> string
@@ -195,8 +210,8 @@ dash_final_url = "http://localhost:1234/edit?" * "id=$notebook&" * join(["isolat
 # ╠═61b91bdf-ead5-4aa1-a4d5-1e1cda8c50cd
 # ╠═bdcfcd1b-6973-4c41-b1d5-08a2ec877e46
 # ╠═46039523-887d-4df6-9be7-170c929fcf72
+# ╠═981b3dc4-f4d7-4466-a0ff-18d1d4938c24
 # ╟─3f51870b-c4b7-405a-9e1e-f35dd70aac8f
-# ╠═88abdf87-52ec-4141-8fb6-3170d46e77ee
 # ╠═fe3e08f8-3dd0-4ebe-a1e7-7ec063222aba
 # ╠═092a445d-7ece-4eb5-844b-c6032e6e4c09
 # ╠═f4a2dbcf-e134-4530-b464-d1dc38236e53
