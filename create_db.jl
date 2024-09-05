@@ -121,9 +121,9 @@ end
 begin
 	convection_cell_explantation = PlutoRunner.currently_running_cell_id[] |> string
 	PlutoUI.ExperimentalLayout.vbox([
-			html"""
-			<h1 align="center"> Vertical transport of salinity and temperature</h1>
-			"""
+			# html"""
+			# <h1 align="center"> Vertical transport of salinity and temperature</h1>
+			# """
 			PlutoUI.ExperimentalLayout.hbox([
 					PlutoUI.ExperimentalLayout.vbox([
 							PlutoUI.ExperimentalLayout.hbox([
@@ -136,7 +136,7 @@ begin
 				This creates a gravitational instability leading to the dense water sinking very rapidly through lighter waters.
 				This process is important near the surface of the ocean where temperature is taken in by the ocean, consequently modulating the local density. 
 
-				The simulation below shows an example of convection.
+				The simulation to the right shows an example of convection.
 				We start with dense water over light water and see very vigorous vertical mixing until the density is approximately uniform over the domain.""",
 						
 				local_convection], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em")),
@@ -149,16 +149,18 @@ begin
 					]),
 					PlutoUI.ExperimentalLayout.vbox([
 														md""" ## Other convective instabilities
-				Due to the differing rates of molecular diffusion between heat and salt (salt is around 100 times slower in the ocean), or the non-linear dependence of seawater density on salinity and temperature, convective instabilities are able to form in profiles that are overall gravitationally stable.
+				Due to the differing rates at which heat and salt are diffused (salt is around 100 times slower in the ocean), or the non-linear dependence of seawater density on salinity and temperature, convective instabilities are able to form in profiles that are overall gravitationally stable.
 
 				Below we look at two instabilities that can form when less dense relatively cold/fresh water sits atop desnser warmer/saltier water.
-				In this case the temperature is weakening the stability but salinity compensates to maintain overall gravitational stability.
-				This is very common in the polar oceans where there is intense cooling at the sea surface.""",
+				In this case temperature is weakening the stability but salinity compensates to maintain overall gravitational stability.
+				This scenario is common in the polar oceans where there intense cooling at the sea surface during winter causing the surface water to approach freezing.
+				""",
 						PlutoUI.ExperimentalLayout.hbox([
 				md"""
 				### Diffusive convection
-				When temperature is acting to destratify the water column, and there are no external sources of mixing or turbulence, *diffusive convection* occurs.
+				When temperature is weakening the stability of a water column, and there are no external sources of mixing or turbulence, *diffusive convection* occurs.
 				In this situation we often see *thermohaline staircases* form where well mixed layers are seperated by very sharp changes in density.
+				These staircases have been well observed in the Artic and increase the rate at which heat is transported vertically.
 				""",
 				local_dc], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em")),
 						PlutoUI.ExperimentalLayout.hbox([
@@ -169,7 +171,7 @@ begin
 				One such process is cabbeling whereby the mixture of two water parcels with equal density, but with differing salinity and temperature, is *denser* than the parent water parcels.
 				This process means that a water column can be gravitataionlly stable but if mixed an instability forms triggering convection.
 				This is what we see in the simulation below.
-				For more information on this work see the research poster ''title''.
+				For more information on this work see the research poster ''Cabbeling's influence on mixing in Direct Numerical Simulations''.
 				"""], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em"))
 					],style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em"))
 			],
