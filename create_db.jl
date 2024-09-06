@@ -34,39 +34,6 @@ To get the writing to go underneath the plots you have to move this cell to belo
 It may be that the description of the animations needs to go under the animations but for now can leave this as is.
 """
 
-# ╔═╡ 6e661452-36f7-4261-9e1e-3e562fdbed0d
-begin
-	expl_cell_1 = PlutoRunner.currently_running_cell_id[] |> string
-	#$(LocalResource(unsw_logo, :width => 60, :height => 60)) Simulating the ocean
-	PlutoUI.ExperimentalLayout.vbox(
-		[
-			html"""
-			<h1 align="center"> Bela edit here - title</h1>
-			"""
-			PlutoUI.ExperimentalLayout.hbox([
-			md"""
-			**Bela edit here text**
-			
-			Running experiments in the ocean is very expensive and labour intensive. To try and understand more about the physical processes in the ocean, simulations are often used.
-			These range from simple simulations, such as the first the animations below, all the way to simulating the global circulation of the ocean as realistically as possible.
-
-			The rotating tank showed how a dye spreads out in various flows.
-			We can use the advection-diffusion (or move around-spread out) equation to simulate what happens to a concentration field (like a dye) in different flow fields.
-
-			For more information about our group visit the [Climate data and dynamics lab website](https://climate-data-dynamics.github.io/climate-data-dynamics-lab-website/).
-			""",
-			#Need the newline for the zoomed in version of the presentation
-			md"""\
-			
-			This dashboard and the simulations that produced the animations can be found at `https://github.com/jbisits/UNSWOpenDay2024`.
-			"""
-			#Add this when you want to add the animation $(local_sst)
-			],
-			style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "5em"))
-		],
-		style=Dict("background" => "border-radius" => "50px", "padding" => "20px", "margin" => "20px", "font-size" => "30px"))
-end
-
 # ╔═╡ 3a22c38a-f530-487a-ba6f-1e9faeca6f36
 md"""
 # Images as `LocalResource`
@@ -80,7 +47,7 @@ path_to_anims = joinpath(pwd(), "animations")
 
 # ╔═╡ f37333ef-5b7d-4e4a-922d-32298fd05c35
 begin
-	# sst = joinpath(path_to_anims, "filename.mp4")
+	sst = joinpath(path_to_anims, "sst_animation.mp4")
 	dc = joinpath(path_to_anims, "diffusive_convection.mp4")
 	convection = joinpath(path_to_anims, "convection.mp4")
 	convection_tracers = joinpath(path_to_anims, "tracers_convection.mp4")
@@ -88,33 +55,61 @@ begin
 end
 
 # ╔═╡ c2ea0a8a-b024-42b5-9ead-91c6b43eeb31
-# begin
-# 	sst_cell = PlutoRunner.currently_running_cell_id[] |> string
-# 	local_sst = LocalResource(sst, :autoplay => "", :loop => "", :width => 800, :height => 600)
-# end
+begin
+	sst_cell = PlutoRunner.currently_running_cell_id[] |> string
+	local_sst = LocalResource(sst, :autoplay => "", :loop => "", :width => 1500, :height => 500)
+end
+
+# ╔═╡ 6e661452-36f7-4261-9e1e-3e562fdbed0d
+begin
+	intro_and_sst_cell = PlutoRunner.currently_running_cell_id[] |> string
+	#$(LocalResource(unsw_logo, :width => 60, :height => 60)) Simulating the ocean
+	PlutoUI.ExperimentalLayout.vbox(
+		[
+			html"""
+			<h1 align="center", style="font-size: 70px"> Ocean uptake and trasport of heat</h1>
+			"""
+			PlutoUI.ExperimentalLayout.hbox([
+					PlutoUI.ExperimentalLayout.vbox([
+			md"""
+			
+			The ocean absorbs more than 90% of the Earth’s excess heat due to human-made global warming. Understanding how this heat is distributed globally is vital for assessing long-term impacts such as sea-level rise, marine heat waves, and potential shifts in large-scale ocean circulation patterns. Here we show examples of how this heat is distributed globally and explore the critical role of vertical mixing.
+			
+			Surface waters of the ocean carry the majority of the Earth’s heat budget, making sea surface temperature (SST) a valuable indicator of how heat is distributed around the globe. Most solar energy is absorbed around the equator, warming tropical waters, which are then redistributed through atmospheric and oceanic circulation.
+			
+			For more information about our group visit the [Climate data and dynamics lab website](https://climate-data-dynamics.github.io/climate-data-dynamics-lab-website/).
+			This dashboard and the simulations that produced the animations can be found at `https://github.com/jbisits/UNSWOpenDay2024`.
+			"""], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "em"))
+				PlutoUI.ExperimentalLayout.vbox([	
+			local_sst], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em"))
+			],
+			style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "5em"))
+		],
+		style=Dict("background" => "border-radius" => "50px", "padding" => "20px", "margin" => "20px", "font-size" => "45px"))
+end
 
 # ╔═╡ 61b91bdf-ead5-4aa1-a4d5-1e1cda8c50cd
 begin
 	dc_cell = PlutoRunner.currently_running_cell_id[] |> string
-	local_dc = LocalResource(dc, :autoplay => "", :loop => "", :width => 900, :height => 700)
+	local_dc = LocalResource(dc, :autoplay => "", :loop => "", :width => 1000, :height => 500)
 end
 
 # ╔═╡ bdcfcd1b-6973-4c41-b1d5-08a2ec877e46
 begin
 	convection_cell = PlutoRunner.currently_running_cell_id[] |> string
-	local_convection = LocalResource(convection, :autoplay => "", :loop => "", :width => 700, :height => 900)
+	local_convection = LocalResource(convection, :autoplay => "", :loop => "", :width => 1000, :height => 600)
 end
 
 # ╔═╡ 46039523-887d-4df6-9be7-170c929fcf72
 begin
 	convection_tracers_cell = PlutoRunner.currently_running_cell_id[] |> string
-	local_convection_tracers = LocalResource(convection_tracers, :autoplay => "", :loop => "", :width => 700, :height => 700)
+	local_convection_tracers = LocalResource(convection_tracers, :autoplay => "", :loop => "", :width => 1000, :height => 1000)
 end
 
 # ╔═╡ 981b3dc4-f4d7-4466-a0ff-18d1d4938c24
 begin
 	cabbeling_cell = PlutoRunner.currently_running_cell_id[] |> string
-	local_cabbeling = LocalResource(cabbeling, :autoplay => "", :loop => "", :width => 600, :height => 600)
+	local_cabbeling = LocalResource(cabbeling, :autoplay => "", :loop => "", :width => 1000, :height => 500)
 end
 
 # ╔═╡ f9594b4f-37f9-4741-887c-901873c7e4be
@@ -126,9 +121,11 @@ begin
 			# """
 			PlutoUI.ExperimentalLayout.hbox([
 					PlutoUI.ExperimentalLayout.vbox([
+					html"""
+					<h1 align="center", style="font-size: 60px"> Convection</h1>
+					""",
 							PlutoUI.ExperimentalLayout.hbox([
 					md""" 
-				## Convection
 				In the ocean, the vertical transport of heat and other biogeochemical tracers is **relatively slow** compared to the lateral transport.
 				The exception to this is *convective mixing*.
 				
@@ -148,36 +145,43 @@ begin
 					"""], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em"))
 					]),
 					PlutoUI.ExperimentalLayout.vbox([
-														md""" ## Other convective instabilities
+					html"""
+					<h1 align="center", style="font-size: 60px"> Other convective instabilities</h1>
+					""",
+				md"""
 				Due to the differing rates at which heat and salt are diffused (salt is around 100 times slower in the ocean), or the non-linear dependence of seawater density on salinity and temperature, convective instabilities are able to form in profiles that are overall gravitationally stable.
 
 				Below we look at two instabilities that can form when less dense relatively cold/fresh water sits atop desnser warmer/saltier water.
 				In this case temperature is weakening the stability but salinity compensates to maintain overall gravitational stability.
 				This scenario is common in the polar oceans where there intense cooling at the sea surface during winter causing the surface water to approach freezing.
+				# """,
+										html"""
+				<h1 align="left", style="font-size: 50px"> Diffusive convection</h1>
 				""",
 						PlutoUI.ExperimentalLayout.hbox([
 				md"""
-				### Diffusive convection
 				When temperature is weakening the stability of a water column, and there are no external sources of mixing or turbulence, *diffusive convection* occurs.
 				In this situation we often see *thermohaline staircases* form where well mixed layers are seperated by very sharp changes in density.
 				These staircases have been well observed in the Artic and increase the rate at which heat is transported vertically.
 				""",
-				local_dc], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em")),
+				local_dc], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "0em")),
+				html"""
+				<h1 align="left", style="font-size: 50px"> Cabbbeling induced instability</h1>
+				""",
 						PlutoUI.ExperimentalLayout.hbox([
 				local_cabbeling,
 				md"""
-				### Cabbbeling induced instability
 				Non-linearities in the equation of state for seawater density lead to non-linear processes.
 				One such process is cabbeling whereby the mixture of two water parcels with equal density, but with differing salinity and temperature, is *denser* than the parent water parcels.
 				This process means that a water column can be gravitataionlly stable but if mixed an instability forms triggering convection.
 				This is what we see in the simulation below.
 				For more information on this work see the research poster ''Cabbeling's influence on mixing in Direct Numerical Simulations''.
-				"""], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em"))
-					],style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em"))
+				"""], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "0em"))
+					],style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1.5em"))
 			],
-			style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "3em"))
+			style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "5em"))
 		],
-		style=Dict("justify-content" => "center", "background" => "border-radius" => "50px", "padding" => "20px", "margin" => "20px", "font-size" => "30px"))
+		style=Dict("justify-content" => "center", "background" => "border-radius" => "50px", "padding" => "20px", "margin" => "20px", "font-size" => "45px"))
 end
 
 # ╔═╡ 3f51870b-c4b7-405a-9e1e-f35dd70aac8f
@@ -186,7 +190,7 @@ md"""
 """
 
 # ╔═╡ fe3e08f8-3dd0-4ebe-a1e7-7ec063222aba
-cells = [expl_cell_1, convection_cell_explantation]
+cells = [intro_and_sst_cell, convection_cell_explantation]
 
 # ╔═╡ 092a445d-7ece-4eb5-844b-c6032e6e4c09
 notebook = PlutoRunner.notebook_id[] |> string
