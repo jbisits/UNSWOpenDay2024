@@ -67,7 +67,7 @@ begin
 	PlutoUI.ExperimentalLayout.vbox(
 		[
 			html"""
-			<h1 align="center", style="font-size: 70px"> Ocean uptake and trasport of heat</h1>
+			<h1 align="center", style="font-size: 80px"> Ocean uptake and trasport of heat</h1>
 			"""
 			PlutoUI.ExperimentalLayout.hbox([
 					PlutoUI.ExperimentalLayout.vbox([
@@ -144,6 +144,7 @@ begin
 					Looking at the salinity and temperature, which determine the density, we can see that the mixing occurs until these tracers are homogeneous over the domain.
 					"""], style=Dict("justify-content" => "center", "align-items" => "center", "gap" => "1em"))
 					]),
+				
 					PlutoUI.ExperimentalLayout.vbox([
 					html"""
 					<h1 align="center", style="font-size: 60px"> Other convective instabilities</h1>
@@ -155,7 +156,7 @@ begin
 				In this case temperature is weakening the stability but salinity compensates to maintain overall gravitational stability.
 				This scenario is common in the polar oceans where there intense cooling at the sea surface during winter causing the surface water to approach freezing.
 				# """,
-										html"""
+				html"""
 				<h1 align="left", style="font-size: 50px"> Diffusive convection</h1>
 				""",
 						PlutoUI.ExperimentalLayout.hbox([
