@@ -67,7 +67,7 @@ begin
 	PlutoUI.ExperimentalLayout.vbox(
 		[
 			html"""
-			<h1 align="center", style="font-size: 80px"> Ocean uptake and trasport of heat</h1>
+			<h1 align="center", style="font-size: 80px"> Ocean uptake and transport of heat</h1>
 			"""
 			PlutoUI.ExperimentalLayout.hbox([
 			md"""
